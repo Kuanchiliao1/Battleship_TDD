@@ -70,7 +70,7 @@ test('hits sink ship', () => {
   expect(ship.isSunk()).toBe(true);
 });
 
-it('tracks board state', () => {
+it.only('tracks board state', () => {
   board.placeShip(3, [0, 0]);
   board.receiveAttack([0, 0]);
   // const squareState = {
@@ -78,11 +78,11 @@ it('tracks board state', () => {
   //   miss: '➖',
   //   empty: '🌊',
   //   sunk: '☠️',
-  //   hit: '💥'
+  //   hit: '💥'A
   // }
-  expect(board.getSquareState(0, 0)).toBe('💥');
-  expect(board.getSquareState(0, 1)).toBe('🌊');
-  expect(board.getSquareState(1, 0)).toBe('🛥️');
+  expect(board.getSquareState([0, 0])).toBe('💥');
+  expect(board.getSquareState([0, 1])).toBe('🌊');
+  expect(board.getSquareState([1, 0])).toBe('🛥️');
 });
 
 // private
