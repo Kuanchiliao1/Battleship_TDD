@@ -19,6 +19,7 @@ function Board(width) {
       for (let i = 0; i < length; i++) {
         const square = getSquare([x + i, y]);
         square.ship = ship;
+        square.state = '🛥️';
       }
     }
   }
@@ -39,11 +40,20 @@ function Board(width) {
     return square;
   }
 
-  return { grid, placeShip, getShipCoords };
+  function receiveAttack(coords) {
+    const square = getSquare(coords);
+    const emoji = square.ship ? '💥' : '➖';
+    square.state = emoji;
+  }
+
+  function getSquareState(coords) {
+    return getSquare(coords).state;
+  }
+
+  return { grid, placeShip, getShipCoords, receiveAttack, getSquareState };
 }
 
 const board = Board(10);
 board.placeShip(3, [0, 0]);
-
 
 export { Board };
