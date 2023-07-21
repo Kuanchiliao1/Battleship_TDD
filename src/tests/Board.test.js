@@ -37,7 +37,7 @@ it.only('place ship in correct coords', () => {
   ]);
 });
 
-it('checks if all ships are sunk (1 ship)', () => {
+it.only('checks if all ships are sunk (1 ship)', () => {
   board.placeShip(3, [0, 0]);
 
   board.receiveAttack([0, 0]);
@@ -47,10 +47,9 @@ it('checks if all ships are sunk (1 ship)', () => {
   expect(board.checkAllShipsSunk()).toBe(true);
 });
 
-it('returns ship based on coord', () => {
+it.only('returns ship based on coord', () => {
   board.placeShip(3, [0, 0]);
-  const ship = board.getShip([0, 0]);
-  // ¿
+
   expect(board.getShipCoords([0, 0])).toEqual([
     [0, 0],
     [1, 0],
