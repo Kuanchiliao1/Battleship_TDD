@@ -2,6 +2,7 @@ import { Ship } from './Ship';
 
 function Board(width) {
   const grid = [];
+  const allShips = [];
 
   for (let i = 9; i >= 0; i--) {
     for (let j = 0; j < width; j++) {
@@ -12,6 +13,7 @@ function Board(width) {
   function placeShip(length, coords, direction = 'horizontal') {
     const [x, y] = coords;
     const ship = Ship(length);
+    allShips.push(ship);
     if (direction === 'horizontal') {
       for (let i = 0; i < length; i++) {
         const square = getSquare([x + i, y]);
@@ -52,7 +54,18 @@ function Board(width) {
     return getSquare(coords).state;
   }
 
-  return { grid, placeShip, getShipCoords, receiveAttack, getSquareState };
+  function checkAllShipsSunk() {
+    return allShips.every((ship) => ship.isSunk());
+  }
+
+  return {
+    grid,
+    placeShip,
+    getShipCoords,
+    receiveAttack,
+    getSquareState,
+    checkAllShipsSunk,
+  };
 }
 
 const board = Board(10);
