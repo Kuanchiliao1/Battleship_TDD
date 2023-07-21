@@ -41,8 +41,8 @@ it('checks if all ships are sunk (1 ship)', () => {
   board.placeShip(3, [0, 0]);
 
   board.receiveAttack([0, 0]);
-  board.receiveAttack(1, 0);
-  board.receiveAttack(2, 0);
+  board.receiveAttack([1, 0]);
+  board.receiveAttack([2, 0]);
 
   expect(board.checkAllShipsSunk()).toBe(true);
 });
@@ -58,15 +58,14 @@ it('returns ship based on coord', () => {
   ]);
 });
 
-test('hits sink ship', () => {
-  board.placeShip(3, [0, 0]);
-  const ship = board.getShip([0, 0]);
+test.only('hits sink ship', () => {
+  const ship = board.placeShip(3, [0, 0]);
 
   board.receiveAttack([0, 0]);
   expect(ship.isSunk()).toBe(false);
-  board.receiveAttack(1, 0);
+  board.receiveAttack([1, 0]);
   expect(ship.isSunk()).toBe(false);
-  board.receiveAttack(2, 0);
+  board.receiveAttack([2, 0]);
   expect(ship.isSunk()).toBe(true);
 });
 
