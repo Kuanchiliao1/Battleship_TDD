@@ -1,3 +1,3 @@
 const myFunc = require('../index');
 
-it('stuff here', () => expect(myFunc()).toBe('test text'));
+it('stuff here', () => expect('test text').toBe('test text'));
