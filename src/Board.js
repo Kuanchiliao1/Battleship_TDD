@@ -9,19 +9,17 @@ function Board(width) {
     }
   }
 
-  grid;
-
   function placeShip(length, coords, direction = 'horizontal') {
+    const [x, y] = coords;
+    const ship = Ship(length);
     if (direction === 'horizontal') {
-      const [x, y] = coords;
-      const ship = Ship(length);
-
       for (let i = 0; i < length; i++) {
         const square = getSquare([x + i, y]);
         square.ship = ship;
         square.state = '🛥️';
       }
     }
+    return ship;
   }
 
   function getShipCoords(coords) {
@@ -42,6 +40,10 @@ function Board(width) {
 
   function receiveAttack(coords) {
     const square = getSquare(coords);
+    if (square.ship) {
+      square.ship.hit();
+    }
+
     const emoji = square.ship ? '💥' : '➖';
     square.state = emoji;
   }
