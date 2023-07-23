@@ -1,6 +1,8 @@
 import { Board } from './Board';
 
-function Player(name, enemyBoard) {
+function Player(name) {
+  const enemyBoard = Board(10);
+
   const attack = (coords) => {
     if (enemyBoard.getSquareState(coords) === '🌊') {
       enemyBoard.receiveAttack(coords);

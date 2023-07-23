@@ -1,16 +1,12 @@
 import { createTestScheduler } from 'jest';
 import { Player } from '../Player';
-import { Board } from '../Board';
 
 let human;
 let computer;
 
 beforeEach(() => {
-  const humanBoard = Board(10);
-  const computerBoard = Board(10);
-
-  human = Player('Human', computerBoard);
-  computer = Player('Computer', humanBoard);
+  human = Player('Human');
+  computer = Player('Computer');
 });
 
 test("that human can attack computer's board", () => {
