@@ -14,12 +14,12 @@ function Board(width) {
     const [x, y] = coords;
     const ship = Ship(length);
     allShips.push(ship);
-    if (direction === 'horizontal') {
-      for (let i = 0; i < length; i++) {
-        const square = getSquare([x + i, y]);
-        square.ship = ship;
-        square.state = '🛥️';
-      }
+
+    for (let i = 0; i < length; i++) {
+      const square =
+        direction === 'horizontal' ? getSquare([x + i, y]) : getSquare([x, y + i]);
+      square.ship = ship;
+      square.state = '🛥️';
     }
     return ship;
   }
