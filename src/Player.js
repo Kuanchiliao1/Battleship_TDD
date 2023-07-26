@@ -1,11 +1,11 @@
 import { Board } from './Board';
 
-function Player(name) {
+function Player(name, number) {
   const isCurrentPlayer = false;
   const board = Board(10);
 
   const attack = (coords, board) => {
-    if (board.getSquareState(coords) === '🌊') {
+    if (['🌊', '🛥️'].includes(board.getSquareState(coords))) {
       board.receiveAttack(coords);
     } else {
       throw new Error('Can not hit the same target twice!');
@@ -17,6 +17,7 @@ function Player(name) {
     name,
     isCurrentPlayer,
     board,
+    number
   };
 }
 
