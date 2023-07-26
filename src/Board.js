@@ -17,7 +17,9 @@ function Board(width) {
 
     for (let i = 0; i < length; i++) {
       const square =
-        direction === 'horizontal' ? getSquare([x + i, y]) : getSquare([x, y + i]);
+        direction === 'horizontal'
+          ? getSquare([x + i, y])
+          : getSquare([x, y + i]);
       square.ship = ship;
       square.state = '🛥️';
     }
@@ -48,6 +50,11 @@ function Board(width) {
 
     const emoji = square.ship ? '💥' : '➖';
     square.state = emoji;
+
+    if (emoji === '💥' && square.ship.isSunk()) {
+      const allShipCoords = getShipCoords(coords);
+      allShipCoords.forEach((coords) => (getSquare(coords).state = '☠️'));
+    }
   }
 
   function getSquareState(coords) {
