@@ -13,16 +13,23 @@ background: linear-gradient(to right, #a51111, #333333); /* W3C, IE 10+/ Edge, F
   gap: 4rem;
   min-height: 100vh;
   align-items: center;
+  justify-content: space-around;
 }
 
-.player-one-board-container,
-.player-two-board-container {
+.board-container {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
   width: 40rem;
   margin: 0 auto;
   position: relative;
+}
+
+.boards-container > * {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
 }
 /* 
 .player-one-board-container::before {
