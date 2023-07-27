@@ -73,6 +73,15 @@ function Board(width) {
     return getSquareState(coords) === '🌊';
   }
 
+  function getRandUnhitCoords() {
+    const unhitSquares = grid.filter((square) => checkCoordsUnhit(square.coords));
+    const unhitCoords = unhitSquares.map(square => square.coords);
+    const randIndex = Math.floor(Math.random() * unhitCoords.length);
+
+    if (unhitCoords.length === 0) return [];
+    return unhitCoords[randIndex];
+  }
+
   return {
     grid,
     placeShip,
@@ -81,6 +90,7 @@ function Board(width) {
     getSquareState,
     checkAllShipsSunk,
     checkCoordsUnhit,
+    getRandUnhitCoords,
   };
 }
 
