@@ -1,6 +1,6 @@
 import { Board } from './Board';
 
-function Player(name, number) {
+function Player(name) {
   const isCurrentPlayer = false;
   const board = Board(10);
 
@@ -17,7 +17,6 @@ function Player(name, number) {
     name,
     isCurrentPlayer,
     board,
-    number
   };
 }
 

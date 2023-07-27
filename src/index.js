@@ -7,8 +7,12 @@ import { Board } from './Board';
 import { Player } from './Player';
 
 function startGame() {
-  const player1 = Player('Test player1', 'one');
-  const player2 = Player('Test player2', 'two');
+  const player1 = Player('Player 1 name');
+  const player2 = Player('Player 2 name');
+
+  player1.isCurrentPlayer = true;
+
+  const activePlayer = player1.isCurrentPlayer ? player1 : player2;
 
   player1.board.placeShip(4, [9, 1], 'vertical');
   player1.board.placeShip(3, [3, 0]);
@@ -30,8 +34,8 @@ function startGame() {
   player1.attack([5, 0], player2.board);
   player1.attack([6, 5], player2.board);
 
-  renderBoard(player1.board, true, player2.number);
-  renderBoard(player2.board, false, player1.number);
+  renderBoard(player2.board, false, player2.name);
+  renderBoard(player1.board, true, player1.name);
   return 'stuff';
 }
 
