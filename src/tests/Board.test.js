@@ -83,6 +83,18 @@ it.only('tracks board state', () => {
   expect(board.getSquareState([1, 0])).toBe('🛥️');
 });
 
+it('returns current player board view as array of emojis', () => {
+  expect(board.getAllEmojis());
+});
+
+it('returns enemy player board view as array of emojis', () => {
+  expect(board.getAllEmojis('enemy'));
+});
+
+it('launches a random attack if no argument', () => {
+  board.receiveAttack();
+})
+
 // private
 it.only('makes grid with correct number of squares', () => {
   // for 10x10 grid
