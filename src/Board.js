@@ -65,6 +65,14 @@ function Board(width) {
     return allShips.every((ship) => ship.isSunk());
   }
 
+  function checkCoordsUnhit(coords) {
+    const [x, y] = coords;
+    // Out of bounds
+    if (x < 0 || y < 0 || x >= 10 || y >= 10) return false;
+
+    return getSquareState(coords) === '🌊';
+  }
+
   return {
     grid,
     placeShip,
@@ -72,6 +80,7 @@ function Board(width) {
     receiveAttack,
     getSquareState,
     checkAllShipsSunk,
+    checkCoordsUnhit,
   };
 }
 
