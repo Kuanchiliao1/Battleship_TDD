@@ -5,6 +5,10 @@ function Player(name) {
   const board = Board(10);
 
   const attack = (coords, board) => {
+    if (coords.length === 0) {
+      coords = board.getRandUnhitCoords();
+    }
+
     if (['🌊', '🛥️'].includes(board.getSquareState(coords))) {
       board.receiveAttack(coords);
     } else {
