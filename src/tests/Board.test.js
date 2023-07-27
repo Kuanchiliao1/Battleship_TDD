@@ -83,6 +83,12 @@ it.only('tracks board state', () => {
   expect(board.getSquareState([1, 0])).toBe('🛥️');
 });
 
+it.only('checks if square is unhit', () => {
+  expect(board.checkCoordsUnhit([0, 0])).toBe(true);
+  board.receiveAttack([0, 0]);
+  expect(board.checkCoordsUnhit([0, 0])).toBe(false);
+});
+
 it('returns current player board view as array of emojis', () => {
   expect(board.getAllEmojis());
 });
