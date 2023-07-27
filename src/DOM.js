@@ -1,7 +1,16 @@
-function renderBoard(board, isActive, playerNumber) {
-  const boardEl = document.querySelector(
-    `.player-${playerNumber}-board-container`
-  );
+function renderBoard(board, isActive, playerName) {
+  const boardsContainerEl = document.querySelector('.boards-container');
+
+  const boardEl = document.createElement('div');
+  boardEl.classList.add('board-container');
+
+  const nameEl = document.createElement('p');
+  nameEl.textContent = playerName;
+
+  const container = document.createElement('div');
+  container.append(nameEl, boardEl);
+
+  boardsContainerEl.append(container);
 
   const emojis = board.grid.map((square) => {
     const checkHiddenShip = !isActive && square.state === '🛥️';
