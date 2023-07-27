@@ -13,19 +13,26 @@ function renderBoard(board, isActive, playerNumber) {
     div.textContent = emoji;
     div.classList.add('square');
 
-    if (emoji === '🛥️') {
-      div.style.background = 'hsl(120, 73%, 65%)';
-    } else if (emoji === '💥') {
-      div.style.background = 'orange';
-    } else if (emoji === '☠️') {
-      div.style.background = 'black';
-    }
+    addEmojiBackground(emoji, div);
     boardEl.append(div);
   });
 }
 
 function bindEventListeners() {
   const boardEl = document.querySelector('.boards');
+}
+
+// Private
+function addEmojiBackground(emoji, element) {
+  if (emoji === '🛥️') {
+    element.style.background = 'hsl(120, 73%, 65%)';
+  } else if (emoji === '💥') {
+    element.style.background = 'orange';
+  } else if (emoji === '☠️') {
+    element.style.background = 'black';
+  } else if (emoji === '➖') {
+    element.style.background = '#3ce1d8';
+  }
 }
 
 export { renderBoard, bindEventListeners };
