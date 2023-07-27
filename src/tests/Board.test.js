@@ -89,6 +89,39 @@ it.only('checks if square is unhit', () => {
   expect(board.checkCoordsUnhit([0, 0])).toBe(false);
 });
 
+it.only('generates a random coord that is unhit', () => {
+  // filter the grid for objects with no ships, select randomly
+
+  // Attack every square. Length hardcoded for now
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      board.receiveAttack([i, j]);
+    }
+  }
+
+  // Expect getRandUnhitCoord() to return empty array if nothing there
+  expect(board.getRandUnhitCoords().length).toBe(0);
+});
+
+it.only('generates a random coord that is unhit', () => {
+  // Attack every square except one. Length hardcoded for now
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      // Skip if [0, 0];
+      if (i === 0 && j === 0) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+      board.receiveAttack([i, j]);
+    }
+  }
+
+  // Expect getRandUnhitCoord() to return [0, 0]
+  const [x, y] = board.getRandUnhitCoords();
+  expect(x).toBe(0);
+  expect(y).toBe(0);
+});
+
 it('returns current player board view as array of emojis', () => {
   expect(board.getAllEmojis());
 });
@@ -99,7 +132,7 @@ it('returns enemy player board view as array of emojis', () => {
 
 it('launches a random attack if no argument', () => {
   board.receiveAttack();
-})
+});
 
 // private
 it.only('makes grid with correct number of squares', () => {
