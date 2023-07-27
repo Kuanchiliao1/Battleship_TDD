@@ -22,3 +22,12 @@ test('that AI does not shoot same spot twice', () => {
     computer.attack([0, 0]).toThrow('Can not hit the same spot twice!')
   );
 });
+
+test('that AI can attack by itself', () => {
+  expect(computer.attack());
+});
+
+// Set up testing to return the attacked coords
+
+// private;
+// checkAttackValid();
