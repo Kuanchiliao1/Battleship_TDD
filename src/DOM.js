@@ -25,6 +25,8 @@ function renderBoard(board, isActive, playerName) {
     const div = document.createElement('div');
     div.textContent = square.emoji;
     div.classList.add('square');
+    div.dataset.x = square.coords[0].toString();
+    div.dataset.y = square.coords[1].toString();
 
     addEmojiBackground(square.emoji, div);
     boardEl.append(div);
