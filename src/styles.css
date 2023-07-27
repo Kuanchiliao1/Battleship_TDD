@@ -3,8 +3,18 @@ html {box-sizing: border-box;}
 
 body {
   background: #333333;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #b02121, #333333);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #a51111, #333333); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #FC466B;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #3F5EFB, #FC466B);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(130deg, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+p {
+  font-size: 3rem;
+}
+
+button {
+  padding: 1.3rem;
 }
 
 .boards-container {
@@ -23,6 +33,14 @@ background: linear-gradient(to right, #a51111, #333333); /* W3C, IE 10+/ Edge, F
   width: 40rem;
   margin: 0 auto;
   position: relative;
+  background: hsl(0, 0%, 100%, 15%);
+  box-shadow: aliceblue 20px solid;
+  border: white 15px solid;
+  box-shadow: 40px 40px 15px 10px rgba(0, 0, 0, 0.2);
+}
+
+.board-container > * {
+
 }
 
 .boards-container > * {
@@ -50,5 +68,5 @@ background: linear-gradient(to right, #a51111, #333333); /* W3C, IE 10+/ Edge, F
 }
 
 .square:hover {
-  background-color: black;
+  background-color: rgba(255, 255, 255, 0.391);
 }
