@@ -12,17 +12,21 @@ function renderBoard(board, isActive, playerName) {
 
   boardsContainerEl.append(container);
 
-  const emojis = board.grid.map((square) => {
+  const squares = board.grid.map((square) => {
     const checkHiddenShip = !isActive && square.state === '🛥️';
-    return checkHiddenShip ? '🌊' : square.state;
+    const emoji = checkHiddenShip ? '🌊' : square.state;
+    const { coords } = square;
+
+    // Need to return obj with coords and emoji
+    return { emoji, coords };
   });
 
-  emojis.forEach((emoji) => {
+  squares.forEach((square) => {
     const div = document.createElement('div');
-    div.textContent = emoji;
+    div.textContent = square.emoji;
     div.classList.add('square');
 
-    addEmojiBackground(emoji, div);
+    addEmojiBackground(square.emoji, div);
     boardEl.append(div);
   });
 }
