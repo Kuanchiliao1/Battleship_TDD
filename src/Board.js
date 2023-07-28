@@ -75,16 +75,45 @@ function Board(width) {
     // Out of bounds
     if (x < 0 || y < 0 || x >= 10 || y >= 10) return false;
 
+    return ['🌊', '🛥️'].includes(getSquareState(coords));
+  }
+
+  function checkCoordsEmpty(coords) {
+    const [x, y] = coords;
+    // Out of bounds
+    if (x < 0 || y < 0 || x >= 10 || y >= 10) return false;
+
     return getSquareState(coords) === '🌊';
   }
 
   function getRandUnhitCoords() {
-    const unhitSquares = grid.filter((square) => checkCoordsUnhit(square.coords));
-    const unhitCoords = unhitSquares.map(square => square.coords);
+    const unhitSquares = grid.filter((square) =>
+      checkCoordsUnhit(square.coords)
+    );
+    const unhitCoords = unhitSquares.map((square) => square.coords);
     const randIndex = Math.floor(Math.random() * unhitCoords.length);
 
     if (unhitCoords.length === 0) return [];
     return unhitCoords[randIndex];
+  }
+
+  function shipPlacementPreview(length, startCoords, direction = 'horizontal') {
+    const [x, y] = startCoords;
+    const allCoords = [];
+    // return an object with coords and a boolean
+    for (let i = 0; i < length; i++) {
+      const coords = direction === 'horizontal' ? [x + i, y] : [x, y + i];
+      allCoords.push(coords);
+    }
+
+    const isValidPlacement = allCoords.every((coords) =>
+      checkCoordsEmpty(coords)
+    );
+
+    return {
+      allCoords,
+      isValidPlacement,
+    };
   }
 
   return {
@@ -96,6 +125,7 @@ function Board(width) {
     checkAllShipsSunk,
     checkCoordsUnhit,
     getRandUnhitCoords,
+    shipPlacementPreview,
     checkCoordsInBound
   };
 }
