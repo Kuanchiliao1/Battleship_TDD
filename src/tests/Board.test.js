@@ -122,6 +122,40 @@ it.only('generates a random coord that is unhit', () => {
   expect(y).toBe(0);
 });
 
+test.only('that preview function returns array of coordinates and boolean', () => {
+  const coords = [0, 0];
+  let len = 3;
+  let preview = board.shipPlacementPreview(len, coords, 'horizontal');
+  expect(preview.allCoords.length).toBe(3);
+  expect(preview.allCoords).toEqual([
+    [0, 0],
+    [1, 0],
+    [2, 0],
+  ]);
+
+  len = 5;
+  preview = board.shipPlacementPreview(len, coords, 'vertical');
+  expect(preview.allCoords.length).toBe(5);
+  expect(preview.allCoords).toEqual([
+    [0, 0],
+    [0, 1],
+    [0, 2],
+    [0, 3],
+    [0, 4],
+  ]);
+});
+
+it.only('returns a boolean indicating whether ship can be placed', () => {
+  const coords = [0, 0];
+  const len = 3;
+  let preview = board.shipPlacementPreview(len, coords, 'horizontal');
+  expect(preview.isValidPlacement).toBe(true);
+
+  board.placeShip(len, coords, 'horizontal');
+  preview = board.shipPlacementPreview(len, coords, 'horizontal');
+  expect(preview.isValidPlacement).toBe(false);
+});
+
 it('returns current player board view as array of emojis', () => {
   expect(board.getAllEmojis());
 });
