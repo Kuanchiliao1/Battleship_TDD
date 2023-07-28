@@ -1,11 +1,13 @@
-function renderBoard(board, isActive, playerName) {
+function renderBoard(player, isActive) {
+  const { board, name } = player;
+  console.log(board)
   const boardsContainerEl = document.querySelector('.boards-container');
 
   const boardEl = document.createElement('div');
   boardEl.classList.add('board-container');
 
   const nameEl = document.createElement('p');
-  nameEl.textContent = playerName;
+  nameEl.textContent = name;
 
   const container = document.createElement('div');
   container.append(nameEl, boardEl);
@@ -27,7 +29,7 @@ function renderBoard(board, isActive, playerName) {
     div.classList.add('square');
     div.dataset.x = square.coords[0].toString();
     div.dataset.y = square.coords[1].toString();
-    div.dataset.name = playerName;
+    div.dataset.name = name;
 
     addEmojiBackground(square.emoji, div);
     boardEl.append(div);
@@ -47,14 +49,14 @@ function bindEventListeners(playerOne, playerTwo) {
     if (x && y) {
       const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
       const activePlayer = selectedPlayer === playerOne ? playerTwo : playerOne;
-  
+
       console.log(selectedPlayer);
       if (!selectedPlayer.isCurrentPlayer) {
         console.log('test');
         activePlayer.attack([+x, +y], selectedPlayer.board);
         clearBoards();
-        renderBoard(selectedPlayer.board, false, selectedPlayer.name);
-        renderBoard(activePlayer.board, true, activePlayer.name);
+        renderBoard(selectedPlayer, false);
+        renderBoard(activePlayer, true);
       }
     }
   });
@@ -90,24 +92,9 @@ function bindEventListeners(playerOne, playerTwo) {
           console.log('yes!!');
           selectedPlayer.board.placeShip(3, [+x, +y], 'vertical');
           clearBoards();
-          renderBoard(activePlayer.board, false, activePlayer.name);
-          renderBoard(selectedPlayer.board, true, selectedPlayer.name);
-
+          renderBoard(activePlayer, false);
+          renderBoard(selectedPlayer, true);
         }
-        // preview.allCoords.forEach((coords) => {
-        //   const [xPos, yPos] = coords;
-        //   const squareEl = document.querySelector(
-        //     `[data-name="${selectedPlayer.name}"][data-x="${xPos}"][data-y="${yPos}"]`
-        //   );
-
-        //   if (selectedPlayer.board.checkCoordsInBound(coords)) {
-        //     if (preview.isValidPlacement) {
-        //       squareEl.style.background = 'hsl(120, 73%, 65%)';
-        //     } else {
-        //       squareEl.style.background = 'red';
-        //     }
-        //   }
-        // });
       }
     },
     false
