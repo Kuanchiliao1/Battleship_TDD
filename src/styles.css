@@ -11,6 +11,7 @@ background: linear-gradient(130deg, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Fir
 
 p {
   font-size: 3rem;
+  text-shadow: 5px 5px 20px black;
 }
 
 button {
@@ -68,5 +69,6 @@ button {
 }
 
 .square:hover {
+  cursor: pointer;
   background-color: rgba(255, 255, 255, 0.391);
 }
