@@ -27,12 +27,138 @@ function renderBoard(board, isActive, playerName) {
     div.classList.add('square');
     div.dataset.x = square.coords[0].toString();
     div.dataset.y = square.coords[1].toString();
+    div.dataset.name = playerName;
 
     addEmojiBackground(square.emoji, div);
     boardEl.append(div);
   });
 }
 
+function clearBoards() {
+  const boardsContainerEl = document.querySelector('.boards-container');
+  boardsContainerEl.innerHTML = '';
+}
+
+function bindEventListeners(playerOne, playerTwo) {
+  const boardEl = document.querySelector('.boards-container');
+  boardEl.addEventListener('click', (e) => {
+    const { x, y, name } = e.target.dataset;
+
+    if (x && y) {
+      const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
+      const activePlayer = selectedPlayer === playerOne ? playerTwo : playerOne;
+  
+      console.log(selectedPlayer);
+      if (!selectedPlayer.isCurrentPlayer) {
+        console.log('test');
+        activePlayer.attack([+x, +y], selectedPlayer.board);
+        clearBoards();
+        renderBoard(selectedPlayer.board, false, selectedPlayer.name);
+        renderBoard(activePlayer.board, true, activePlayer.name);
+      }
+    }
+  });
+
+  boardEl.addEventListener(
+    'click',
+    (e) => {
+      const { name } = e.target.dataset;
+      const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
+      const activePlayer = selectedPlayer === playerOne ? playerTwo : playerOne;
+
+      if (selectedPlayer.isCurrentPlayer) {
+        // clearBoards();
+        // renderBoard(activePlayer.board, false, activePlayer.name);
+        // renderBoard(selectedPlayer.board, true, selectedPlayer.name);
+        const elements = document.querySelectorAll(
+          `[data-name="${selectedPlayer.name}"]`
+        );
+        elements.forEach((element) => {
+          // if (element.textContent === '🛥️') {
+          //   element.style.background = 'green';
+          // }
+          addEmojiBackground(element.textContent, element);
+        });
+
+        const { x, y } = e.target.dataset;
+        const preview = selectedPlayer.board.shipPlacementPreview(
+          3,
+          [+x, +y],
+          'vertical'
+        );
+        if (preview.isValidPlacement) {
+          console.log('yes!!');
+          selectedPlayer.board.placeShip(3, [+x, +y], 'vertical');
+          clearBoards();
+          renderBoard(activePlayer.board, false, activePlayer.name);
+          renderBoard(selectedPlayer.board, true, selectedPlayer.name);
+
+        }
+        // preview.allCoords.forEach((coords) => {
+        //   const [xPos, yPos] = coords;
+        //   const squareEl = document.querySelector(
+        //     `[data-name="${selectedPlayer.name}"][data-x="${xPos}"][data-y="${yPos}"]`
+        //   );
+
+        //   if (selectedPlayer.board.checkCoordsInBound(coords)) {
+        //     if (preview.isValidPlacement) {
+        //       squareEl.style.background = 'hsl(120, 73%, 65%)';
+        //     } else {
+        //       squareEl.style.background = 'red';
+        //     }
+        //   }
+        // });
+      }
+    },
+    false
+  );
+
+  boardEl.addEventListener(
+    'mouseover',
+    (e) => {
+      const { name } = e.target.dataset;
+      const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
+      const activePlayer = selectedPlayer === playerOne ? playerTwo : playerOne;
+
+      if (selectedPlayer.isCurrentPlayer) {
+        // clearBoards();
+        // renderBoard(activePlayer.board, false, activePlayer.name);
+        // renderBoard(selectedPlayer.board, true, selectedPlayer.name);
+        const elements = document.querySelectorAll(
+          `[data-name="${selectedPlayer.name}"]`
+        );
+        elements.forEach((element) => {
+          // if (element.textContent === '🛥️') {
+          //   element.style.background = 'green';
+          // }
+          addEmojiBackground(element.textContent, element);
+        });
+
+        const { x, y } = e.target.dataset;
+        const preview = selectedPlayer.board.shipPlacementPreview(
+          3,
+          [+x, +y],
+          'vertical'
+        );
+        preview.allCoords.forEach((coords) => {
+          const [xPos, yPos] = coords;
+          const squareEl = document.querySelector(
+            `[data-name="${selectedPlayer.name}"][data-x="${xPos}"][data-y="${yPos}"]`
+          );
+
+          if (selectedPlayer.board.checkCoordsInBound(coords)) {
+            if (preview.isValidPlacement) {
+              squareEl.style.background = 'hsl(120, 73%, 65%)';
+            } else {
+              squareEl.style.background = 'red';
+            }
+          }
+          console.log(squareEl);
+        });
+      }
+    },
+    false
+  );
 
   const btn1 = document.getElementById('1');
   const btn2 = document.getElementById('2');
@@ -87,7 +213,9 @@ function addEmojiBackground(emoji, element) {
     element.style.background = 'black';
   } else if (emoji === '➖') {
     element.style.background = '#3ce1d8';
+  } else if (emoji === '🌊') {
+    element.style.background = 'hsl(0, 0%, 100%, 15%)';
   }
 }
 
-export { renderBoard, bindEventListeners };
+export { renderBoard, bindEventListeners, clearBoards };
