@@ -65,6 +65,11 @@ function Board(width) {
     return allShips.every((ship) => ship.isSunk());
   }
 
+  function checkCoordsInBound(coords) {
+    const [x, y] = coords;
+    return x >= 0 && x < 10 && y >= 0 && y < 10;
+  }
+
   function checkCoordsUnhit(coords) {
     const [x, y] = coords;
     // Out of bounds
@@ -91,6 +96,7 @@ function Board(width) {
     checkAllShipsSunk,
     checkCoordsUnhit,
     getRandUnhitCoords,
+    checkCoordsInBound
   };
 }
 
