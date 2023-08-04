@@ -45,13 +45,12 @@ function bindEventListeners(playerOne, playerTwo) {
   boardEl.addEventListener('click', (e) => {
     const { x, y, name } = e.target.dataset;
 
+
     if (x && y) {
       const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
       const activePlayer = selectedPlayer === playerOne ? playerTwo : playerOne;
 
-      console.log(selectedPlayer);
       if (!selectedPlayer.isCurrentPlayer) {
-        console.log('test');
         activePlayer.attack([+x, +y], selectedPlayer.board);
         clearBoards();
         renderBoard(selectedPlayer, false);
