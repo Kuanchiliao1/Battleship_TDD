@@ -1,6 +1,5 @@
 function renderBoard(player, isActive) {
   const { board, name } = player;
-  console.log(board)
   const boardsContainerEl = document.querySelector('.boards-container');
 
   const boardEl = document.createElement('div');
@@ -105,19 +104,12 @@ function bindEventListeners(playerOne, playerTwo) {
     (e) => {
       const { name } = e.target.dataset;
       const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
-      const activePlayer = selectedPlayer === playerOne ? playerTwo : playerOne;
 
       if (selectedPlayer.isCurrentPlayer) {
-        // clearBoards();
-        // renderBoard(activePlayer.board, false, activePlayer.name);
-        // renderBoard(selectedPlayer.board, true, selectedPlayer.name);
         const elements = document.querySelectorAll(
           `[data-name="${selectedPlayer.name}"]`
         );
         elements.forEach((element) => {
-          // if (element.textContent === '🛥️') {
-          //   element.style.background = 'green';
-          // }
           addEmojiBackground(element.textContent, element);
         });
 
@@ -125,7 +117,7 @@ function bindEventListeners(playerOne, playerTwo) {
         const preview = selectedPlayer.board.shipPlacementPreview(
           3,
           [+x, +y],
-          'vertical'
+          'horizontal'
         );
         preview.allCoords.forEach((coords) => {
           const [xPos, yPos] = coords;
