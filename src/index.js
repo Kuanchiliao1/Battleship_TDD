@@ -1,6 +1,6 @@
 import './styles.css';
 import _ from 'lodash';
-import { bindEventListeners, renderBoard } from './DOM';
+import { bindEventListeners, render, renderBoard } from './DOM';
 // comment out later..
 import { Player } from './Player';
 
@@ -35,8 +35,9 @@ function startGame() {
   player1.attack([5, 0], player2.board);
   player1.attack([6, 5], player2.board);
 
-  renderBoard(player2, false);
-  renderBoard(player1, true);
+  // renderBoard(player2, false);
+  // renderBoard(player1, true);
+  render(player1, player2);
 
   if (player2.board.checkAllShipsSunk()) {
     console.log('player 1 wins!');
@@ -49,12 +50,30 @@ function startGame() {
     //
   // Ask via prompt first, then integrate into the DOM
     // player 1 attacks by inputing with prompt()
+      // format: two numbers. ex: 00, 90, 99
+      // Use basic string splitting to use as input
     // player1.attack() is called with the inputs
     // set player1.isCurrentlyActive to false and true for player2
     // player2 does a random attack with attack()
-  const limit = 20;
+  // Problem: have to wait for click in order to keep going with the game loop... need to pause it somehow
+  // Also make a delay for AI to make its attack
+  const limit = 2;
   let i = 0
   while (!player1.board.checkAllShipsSunk() && !player2.board.checkAllShipsSunk() && i < limit) {
+    render(player1, player2);
+    const attackCoords = prompt('enter coords ex: 11');
+    const attackCoordsArray = attackCoords.split('').map(coord => +coord);
+
+    player1.attack(attackCoordsArray, player2.board);
+
+    render(player1, player2);
+
+
+    player2.attack([], player1.board)
+
+    render(player1, player2);
+
+    console.log(attackCoordsArray)
     // alert('game loop is running!');
     // prompt('enter some coordinates');
     i++
