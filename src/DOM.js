@@ -40,6 +40,12 @@ function clearBoards() {
   boardsContainerEl.innerHTML = '';
 }
 
+function render(playerOne, playerTwo) {
+  clearBoards();
+  renderBoard(playerTwo, false);
+  renderBoard(playerOne, true);
+}
+
 function bindEventListeners(playerOne, playerTwo) {
   const boardEl = document.querySelector('.boards-container');
   boardEl.addEventListener('click', (e) => {
@@ -196,4 +202,4 @@ function addEmojiBackground(emoji, element) {
   }
 }
 
-export { renderBoard, bindEventListeners, clearBoards };
+export { renderBoard, bindEventListeners, clearBoards, render };
