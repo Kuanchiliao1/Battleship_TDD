@@ -57,30 +57,28 @@ function startGame() {
     // player2 does a random attack with attack()
   // Problem: have to wait for click in order to keep going with the game loop... need to pause it somehow
   // Also make a delay for AI to make its attack
-  const limit = 2;
-  let i = 0
-  while (!player1.board.checkAllShipsSunk() && !player2.board.checkAllShipsSunk() && i < limit) {
-    render(player1, player2);
-    const attackCoords = prompt('enter coords ex: 11');
-    const attackCoordsArray = attackCoords.split('').map(coord => +coord);
+  // const limit = 2;
+  // let i = 0
+  // while (!player1.board.checkAllShipsSunk() && !player2.board.checkAllShipsSunk() && i < limit) {
+  //   render(player1, player2);
+  //   const attackCoords = prompt('enter coords ex: 11');
+  //   const attackCoordsArray = attackCoords.split('').map(coord => +coord);
 
-    player1.attack(attackCoordsArray, player2.board);
+  //   player1.attack(attackCoordsArray, player2.board);
 
-    render(player1, player2);
+  //   render(player1, player2);
 
 
-    player2.attack([], player1.board)
+  //   player2.attack([], player1.board)
 
-    render(player1, player2);
+  //   render(player1, player2);
 
-    console.log(attackCoordsArray)
-    // alert('game loop is running!');
-    // prompt('enter some coordinates');
-    i++
-    console.log('loop runs!')
-  }
-
-  
+  //   console.log(attackCoordsArray)
+  //   // alert('game loop is running!');
+  //   // prompt('enter some coordinates');
+  //   i++
+  //   console.log('loop runs!')
+  // }
 
   return 'stuff';
 }
