@@ -48,23 +48,18 @@ function render(playerOne, playerTwo) {
 
 function bindEventListeners(playerOne, playerTwo) {
   const boardEl = document.querySelector('.boards-container');
+  // Detect click to register an attack
   boardEl.addEventListener('click', (e) => {
     const { x, y, name } = e.target.dataset;
 
-
-    if (x && y) {
-      const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
-      const activePlayer = selectedPlayer === playerOne ? playerTwo : playerOne;
-
-      if (!selectedPlayer.isCurrentPlayer) {
-        activePlayer.attack([+x, +y], selectedPlayer.board);
-        clearBoards();
-        renderBoard(selectedPlayer, false);
-        renderBoard(activePlayer, true);
-      }
+    if (x && y && playerTwo.name === name) {
+      playerOne.attack([+x, +y], playerTwo.board);
+      playerTwo.attack([], playerOne.board);
+      render(playerOne, playerTwo);
     }
   });
 
+  // Detect and register click to place ship if preview function passes
   boardEl.addEventListener(
     'click',
     (e) => {
@@ -73,16 +68,10 @@ function bindEventListeners(playerOne, playerTwo) {
       const activePlayer = selectedPlayer === playerOne ? playerTwo : playerOne;
 
       if (selectedPlayer.isCurrentPlayer) {
-        // clearBoards();
-        // renderBoard(activePlayer.board, false, activePlayer.name);
-        // renderBoard(selectedPlayer.board, true, selectedPlayer.name);
         const elements = document.querySelectorAll(
           `[data-name="${selectedPlayer.name}"]`
         );
         elements.forEach((element) => {
-          // if (element.textContent === '🛥️') {
-          //   element.style.background = 'green';
-          // }
           addEmojiBackground(element.textContent, element);
         });
 
@@ -90,11 +79,11 @@ function bindEventListeners(playerOne, playerTwo) {
         const preview = selectedPlayer.board.shipPlacementPreview(
           3,
           [+x, +y],
-          'vertical'
+          'horizontal'
         );
         if (preview.isValidPlacement) {
           console.log('yes!!');
-          selectedPlayer.board.placeShip(3, [+x, +y], 'vertical');
+          selectedPlayer.board.placeShip(3, [+x, +y], 'horizontal');
           clearBoards();
           renderBoard(activePlayer, false);
           renderBoard(selectedPlayer, true);
@@ -104,6 +93,7 @@ function bindEventListeners(playerOne, playerTwo) {
     false
   );
 
+  // Generates a ship preview on hover to visualize valid ship placements
   boardEl.addEventListener(
     'mouseover',
     (e) => {
