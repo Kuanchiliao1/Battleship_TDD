@@ -130,6 +130,10 @@ function bindEventListeners(playerOne, playerTwo) {
           console.log(squareEl);
         });
       }
+
+      if (!name) {
+        render(playerOne, playerTwo);
+      }
     },
     false
   );
