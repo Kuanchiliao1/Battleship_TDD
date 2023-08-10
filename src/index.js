@@ -21,9 +21,12 @@ function startGame() {
   player1.board.placeShip(4, [9, 1], 'vertical');
   player1.board.placeShip(3, [3, 0]);
   player1.board.placeShip(3, [5, 5]);
+  player1.board.placeShip(2, [4, 6]);
 
   player2.board.placeShip(3, [5, 5]);
   player2.board.placeShip(2, [4, 6]);
+  player2.board.placeShip(4, [9, 1], 'vertical');
+  player2.board.placeShip(3, [3, 0]);
 
   player2.attack([0, 0], player1.board);
   player2.attack([3, 0], player1.board);
@@ -38,6 +41,7 @@ function startGame() {
   // renderBoard(player2, false);
   // renderBoard(player1, true);
   render(player1, player2);
+  console.log(player1.isPlacingShip) //
 
   if (player2.board.checkAllShipsSunk()) {
     console.log('player 1 wins!');
