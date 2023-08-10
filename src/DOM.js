@@ -46,16 +46,39 @@ function render(playerOne, playerTwo) {
   renderBoard(playerOne, true);
 }
 
+function toggleBoardInactive(name) {
+  const elements = document.querySelectorAll(`[data-name="${name}"]`);
+
+  elements.forEach((element) => {
+    element.style.cursor = 'not-allowed';
+    element.style.pointerEvents = 'none';
+    element.style.background = 'pink';
+    // Check out how this is diff than disabling pointer events
+  });
+}
+
 function bindEventListeners(playerOne, playerTwo) {
   const boardEl = document.querySelector('.boards-container');
   // Detect click to register an attack
   boardEl.addEventListener('click', (e) => {
     const { x, y, name } = e.target.dataset;
 
+    // If player two's board is selected
     if (x && y && playerTwo.name === name) {
       playerOne.attack([+x, +y], playerTwo.board);
-      playerTwo.attack([], playerOne.board);
+      playerOne.isCurrentPlayer = false;
+
+      // AI attacks after 3 seconds;
+      setTimeout(() => {
+        playerTwo.attack([], playerOne.board);
+        playerOne.isCurrentPlayer = true;
+        render(playerOne, playerTwo);
+      }, 3000);
       render(playerOne, playerTwo);
+
+      if (!playerOne.isCurrentPlayer) {
+        toggleBoardInactive(playerTwo.name);
+      }
     }
   });
 
