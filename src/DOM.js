@@ -88,9 +88,8 @@ function bindEventListeners(playerOne, playerTwo) {
     (e) => {
       const { name } = e.target.dataset;
       const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
-      const activePlayer = selectedPlayer === playerOne ? playerTwo : playerOne;
 
-      if (selectedPlayer.isCurrentPlayer) {
+      if (selectedPlayer.isPlacingShips) {
         const elements = document.querySelectorAll(
           `[data-name="${selectedPlayer.name}"]`
         );
@@ -105,11 +104,8 @@ function bindEventListeners(playerOne, playerTwo) {
           'horizontal'
         );
         if (preview.isValidPlacement) {
-          console.log('yes!!');
           selectedPlayer.board.placeShip(3, [+x, +y], 'horizontal');
-          clearBoards();
-          renderBoard(activePlayer, false);
-          renderBoard(selectedPlayer, true);
+          render(playerOne, playerTwo);
         }
       }
     },
@@ -123,7 +119,7 @@ function bindEventListeners(playerOne, playerTwo) {
       const { name } = e.target.dataset;
       const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
 
-      if (selectedPlayer.isCurrentPlayer) {
+      if (selectedPlayer.isPlacingShips) {
         const elements = document.querySelectorAll(
           `[data-name="${selectedPlayer.name}"]`
         );
@@ -152,10 +148,6 @@ function bindEventListeners(playerOne, playerTwo) {
           }
           console.log(squareEl);
         });
-      }
-
-      if (!name) {
-        render(playerOne, playerTwo);
       }
     },
     false
