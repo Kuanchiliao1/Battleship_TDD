@@ -1,6 +1,6 @@
 import { Ship } from './Ship';
 
-function Board(width) {
+function Board(width, totalShips) {
   const grid = [];
   const allShips = [];
 
@@ -65,6 +65,10 @@ function Board(width) {
     return allShips.every((ship) => ship.isSunk());
   }
 
+  function checkAllShipsPlaced() {
+    return allShips.length >= totalShips;
+  }
+
   function checkCoordsInBound(coords) {
     const [x, y] = coords;
     return x >= 0 && x < 10 && y >= 0 && y < 10;
@@ -123,10 +127,11 @@ function Board(width) {
     receiveAttack,
     getSquareState,
     checkAllShipsSunk,
+    checkAllShipsPlaced,
     checkCoordsUnhit,
     getRandUnhitCoords,
     shipPlacementPreview,
-    checkCoordsInBound
+    checkCoordsInBound,
   };
 }
 
