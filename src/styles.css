@@ -4,14 +4,26 @@ html {box-sizing: border-box;}
 body {
   background: #333333;  /* fallback for old browsers */
   background: #FC466B;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to bottom, #3F5EFB, #FC466B);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(130deg, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to bottom, #3F5EFB, #FC466B);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(130deg, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: whitesmoke;
+  font-family: 'Inter', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+}
 
+h1 {
+  margin-inline: auto;
+  margin-block: 0;
+  width: 30rem;
+  min-width: fit-content;
+  font-size: 50px;
+  vertical-align: baseline;
 }
 
 p {
   font-size: 3rem;
   text-shadow: 5px 5px 20px black;
+  margin-top: .5rem;
 }
 
 button {
