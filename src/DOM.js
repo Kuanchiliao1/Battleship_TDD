@@ -52,7 +52,7 @@ function toggleBoardInactive(name) {
   elements.forEach((element) => {
     element.style.cursor = 'not-allowed';
     element.style.pointerEvents = 'none';
-    element.style.background = 'pink';
+    element.style.opacity = '.7';
     // Check out how this is diff than disabling pointer events
   });
 }
@@ -73,7 +73,7 @@ function bindEventListeners(playerOne, playerTwo) {
         playerTwo.attack([], playerOne.board);
         playerOne.isCurrentPlayer = true;
         render(playerOne, playerTwo);
-      }, 3000);
+      }, 2000);
       render(playerOne, playerTwo);
 
       if (!playerOne.isCurrentPlayer) {
