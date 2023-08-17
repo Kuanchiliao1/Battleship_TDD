@@ -10,6 +10,7 @@ function startGame() {
   const player2 = Player('A.I.');
 
   player1.isCurrentPlayer = true;
+  player1.isPlacingShip = true;
 
   // const activePlayer = () => (player1.isCurrentPlayer ? player1 : player2);
   // const switchActivePlayer = () => {
