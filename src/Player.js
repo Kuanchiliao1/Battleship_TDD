@@ -1,7 +1,7 @@
 import { Board } from './Board';
 
-function Player(name) {
-  const board = Board(10);
+function Player(name, totalShips) {
+  const board = Board(10, totalShips);
 
   const attack = (coords, board) => {
     if (coords.length === 0) {
@@ -19,7 +19,7 @@ function Player(name) {
     attack,
     name,
     isCurrentPlayer: false,
-    isPlacingShip: false,
+    isPlacingShips: false,
     board,
   };
 }
