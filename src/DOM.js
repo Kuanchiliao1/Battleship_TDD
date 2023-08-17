@@ -64,7 +64,7 @@ function bindEventListeners(playerOne, playerTwo) {
     const { x, y, name } = e.target.dataset;
 
     // If player two's board is selected
-    if (x && y && playerTwo.name === name) {
+    if (x && y && playerTwo.name === name && !playerOne.isPlacingShips) {
       playerOne.attack([+x, +y], playerTwo.board);
       playerOne.isCurrentPlayer = false;
 
@@ -73,7 +73,7 @@ function bindEventListeners(playerOne, playerTwo) {
         playerTwo.attack([], playerOne.board);
         playerOne.isCurrentPlayer = true;
         render(playerOne, playerTwo);
-      }, 2000);
+      }, 1000);
       render(playerOne, playerTwo);
 
       if (!playerOne.isCurrentPlayer) {
@@ -149,7 +149,6 @@ function bindEventListeners(playerOne, playerTwo) {
               squareEl.style.background = 'red';
             }
           }
-          console.log(squareEl);
         });
       }
     },
