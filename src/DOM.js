@@ -87,24 +87,27 @@ function bindEventListeners(playerOne, playerTwo) {
     'click',
     (e) => {
       const { name } = e.target.dataset;
-      const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
+      const playerOneSelected = playerOne.name === name;
 
-      if (selectedPlayer.isPlacingShips) {
+      if (playerOneSelected && playerOne.isPlacingShips) {
         const elements = document.querySelectorAll(
-          `[data-name="${selectedPlayer.name}"]`
+          `[data-name="${playerOne.name}"]`
         );
         elements.forEach((element) => {
           addEmojiBackground(element.textContent, element);
         });
 
         const { x, y } = e.target.dataset;
-        const preview = selectedPlayer.board.shipPlacementPreview(
+        const preview = playerOne.board.shipPlacementPreview(
           3,
           [+x, +y],
           'horizontal'
         );
         if (preview.isValidPlacement) {
-          selectedPlayer.board.placeShip(3, [+x, +y], 'horizontal');
+          playerOne.board.placeShip(3, [+x, +y], 'horizontal');
+          if (playerOne.board.checkAllShipsPlaced()) {
+            playerOne.isPlacingShips = false;
+          }
           render(playerOne, playerTwo);
         }
       }
@@ -117,18 +120,18 @@ function bindEventListeners(playerOne, playerTwo) {
     'mouseover',
     (e) => {
       const { name } = e.target.dataset;
-      const selectedPlayer = playerOne.name === name ? playerOne : playerTwo;
+      const playerOneSelected = playerOne.name === name;
 
-      if (selectedPlayer.isPlacingShips) {
+      if (playerOneSelected && playerOne.isPlacingShips) {
         const elements = document.querySelectorAll(
-          `[data-name="${selectedPlayer.name}"]`
+          `[data-name="${playerOne.name}"]`
         );
         elements.forEach((element) => {
           addEmojiBackground(element.textContent, element);
         });
 
         const { x, y } = e.target.dataset;
-        const preview = selectedPlayer.board.shipPlacementPreview(
+        const preview = playerOne.board.shipPlacementPreview(
           3,
           [+x, +y],
           'horizontal'
@@ -136,10 +139,10 @@ function bindEventListeners(playerOne, playerTwo) {
         preview.allCoords.forEach((coords) => {
           const [xPos, yPos] = coords;
           const squareEl = document.querySelector(
-            `[data-name="${selectedPlayer.name}"][data-x="${xPos}"][data-y="${yPos}"]`
+            `[data-name="${playerOne.name}"][data-x="${xPos}"][data-y="${yPos}"]`
           );
 
-          if (selectedPlayer.board.checkCoordsInBound(coords)) {
+          if (playerOne.board.checkCoordsInBound(coords)) {
             if (preview.isValidPlacement) {
               squareEl.style.background = 'hsl(120, 73%, 65%)';
             } else {
