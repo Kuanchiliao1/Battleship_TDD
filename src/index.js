@@ -23,8 +23,6 @@ function startGame() {
 
   player2.board.placeShip(3, [5, 5]);
   player2.board.placeShip(2, [4, 6]);
-  player2.board.placeShip(4, [9, 1], 'vertical');
-  player2.board.placeShip(3, [3, 0]);
 
   // renderBoard(player2, false);
   // renderBoard(player1, true);
@@ -35,6 +33,10 @@ function startGame() {
     console.log('player 1 wins!');
   }
   bindEventListeners(player1, player2, renderBoard);
+
+  setTimeout(() => {
+    alert(`Please place your ships (${totalShipsPerPlayer})`);
+  }, 1000)
 
   // Loop until someone's ships are completely sunk. Go one at a time.
   // While player1+player2.board.checkAllShipsSunk() is false, keep going
