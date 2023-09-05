@@ -57,6 +57,12 @@ function toggleBoardInactive(name) {
   });
 }
 
+function gameOver(player) {
+  const dialog = document.querySelector('dialog')
+  dialog.textContent = `Game over! ${player.name} has won`
+  dialog.showModal()
+}
+
 function bindEventListeners(playerOne, playerTwo) {
   const boardEl = document.querySelector('.boards-container');
   // Detect click to register an attack
@@ -66,11 +72,17 @@ function bindEventListeners(playerOne, playerTwo) {
     // If player two's board is selected
     if (x && y && playerTwo.name === name && !playerOne.isPlacingShips) {
       playerOne.attack([+x, +y], playerTwo.board);
+      if (playerTwo.board.checkAllShipsSunk()) {
+        gameOver(playerOne);
+      }
       playerOne.isCurrentPlayer = false;
 
       // AI attacks after 3 seconds;
       setTimeout(() => {
         playerTwo.attack([], playerOne.board);
+        if (playerOne.board.checkAllShipsSunk()) {
+          gameOver(playerTwo);
+        }
         playerOne.isCurrentPlayer = true;
         render(playerOne, playerTwo);
       }, 1000);
