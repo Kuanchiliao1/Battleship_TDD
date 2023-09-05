@@ -62,6 +62,7 @@ function Board(width, totalShips) {
   }
 
   function checkAllShipsSunk() {
+    if (allShips.length === 0) return false;
     return allShips.every((ship) => ship.isSunk());
   }
 
