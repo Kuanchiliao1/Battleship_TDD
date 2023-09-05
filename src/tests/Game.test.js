@@ -18,7 +18,7 @@ beforeEach(() => {
 
 it('creates boards and players', () => {});
 
-it('populates each board with ships', () => {
+it.only('populates each board with ships', () => {
   // stuff
 });
 
