@@ -58,9 +58,9 @@ function toggleBoardInactive(name) {
 }
 
 function gameOver(player) {
-  const dialog = document.querySelector('dialog')
-  dialog.textContent = `Game over! ${player.name} has won`
-  dialog.showModal()
+  const dialog = document.querySelector('dialog');
+  dialog.textContent = `Game over! ${player.name} has won`;
+  dialog.showModal();
 }
 
 function bindEventListeners(playerOne, playerTwo) {
@@ -167,46 +167,22 @@ function bindEventListeners(playerOne, playerTwo) {
     false
   );
 
-  const btn1 = document.getElementById('1');
-  const btn2 = document.getElementById('2');
-  const btn3 = document.getElementById('3');
-  const btn4 = document.getElementById('4');
-  const btn5 = document.getElementById('5');
-  const btn6 = document.getElementById('6');
-  const btn7 = document.getElementById('7');
-  const btn8 = document.getElementById('8');
-  btn1.addEventListener('click', () => {
-    document.body.style.cssText += `background-color: #D9AFD9;
-    background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
-    `;
-  });
-  btn2.addEventListener('click', () => {
-    document.body.style.cssText += `background: rgb(63,94,251);
-    background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);`;
-  });
-  btn3.addEventListener('click', () => {
-    document.body.style.cssText += `background-color: #FFE53B;
-    background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
-    `;
-  });
-  btn4.addEventListener('click', () => {
-    document.body.style.cssText += `background-color: #FFE53B;
-    background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
-    `;
-  });
-  btn5.addEventListener('click', () => {
-    document.body.style.cssText += `background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);`;
-  });
-  btn6.addEventListener('click', () => {
-    document.body.style.cssText += `background-image: linear-gradient( 99deg,  rgba(115,18,81,1) 10.6%, rgba(28,28,28,1) 118% );`;
-  });
-  btn7.addEventListener('click', () => {
-    document.body.style.cssText += `background-color: #FFE53B;
-    background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
-    `;
-  });
-  btn8.addEventListener('click', () => {
-    document.body.style.cssText += `background-image: linear-gradient( 109.6deg,  rgba(247,253,166,1) 11.2%, rgba(128,255,221,1) 57.8%, rgba(255,128,249,1) 85.9% );`;
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const themeArray = [
+    '0deg, #D9AFD9 0%, #97D9E1 100%',
+    '90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%',
+    '147deg, #FFE53B 0%, #FF2525 74%', // This gradient is repeated
+    'to top, #a18cd1 0%, #fbc2eb 100%',
+    '99deg,  rgba(115,18,81,1) 10.6%, rgba(28,28,28,1) 118%',
+    '109.6deg,  rgba(247,253,166,1) 11.2%, rgba(128,255,221,1) 57.8%, rgba(255,128,249,1) 85.9%',
+  ];
+
+  themeBtns.forEach((btn, index) => {
+    btn.style.cssText += `background-image: linear-gradient(${themeArray[index]}); border: white solid 3px;`;
+
+    btn.addEventListener('click', () => {
+      document.body.style.cssText += `background-image: linear-gradient(${themeArray[index]});`;
+    });
   });
 }
 
