@@ -2,14 +2,13 @@ import { Ship } from '../Ship';
 
 let ship;
 
-// length
 beforeEach(() => {
-  ship = Ship(3);
-  return ship;
+  const length = 3;
+  ship = Ship(length);
 });
 
 // Startup before each test
-it('returns true when it is sunk', () => {
+it('returns true when ship is sunk', () => {
   expect(ship.isSunk()).toBe(false);
   ship.hit();
   ship.hit();
@@ -17,7 +16,7 @@ it('returns true when it is sunk', () => {
   expect(ship.isSunk()).toBe(true);
 });
 
-test('is not sunk when hit once', () => {
+test('ship is not sunk when hit once', () => {
   expect(ship.isSunk()).toBe(false);
   ship.hit();
   expect(ship.isSunk()).toBe(false);
