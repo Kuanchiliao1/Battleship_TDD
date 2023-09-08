@@ -1,27 +1,18 @@
 import { Board } from '../Board';
 
-// Public
-// placeShip()
-// getShip()
-// getShipCoords()
-// receiveAttack()
-// check if ships are all sunk
-// getSquareState()
-
-// Private
-// grid
-// { ship: null, coord: [x, y], checkHasBeenAttacked: true/false }
-// ship + miss is impossible
-// ship + hit is either hit or sunk
-// no ship + empty is blank square
-// no ship + hit is miss
+// *LEGEND*
+// unhit ship: '🛥️',
+// missed shot: '➖',
+// unhit empty water: '🌊',
+// sunk ship: '☠️',
+// hit but unsunk ship: '💥'
 
 let board;
 
 beforeEach(() => {
   // length of grid
-  board = Board(10);
-  return board;
+  const length = 10;
+  board = Board(length);
 });
 
 it.only('place ship in correct coords', () => {
