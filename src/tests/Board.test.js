@@ -10,7 +10,6 @@ import { Board } from '../Board';
 let board;
 
 beforeEach(() => {
-  // length of grid
   const length = 10;
   board = Board(length);
 });
@@ -20,7 +19,6 @@ it.only('place ship in correct coords', () => {
   board.placeShip(3, [0, 0]);
 
   // coords: [[0,0], [0,1], [0,2]]
-  // DOuble check this test matcher
   expect(board.getShipCoords([0, 0])).toEqual([
     [0, 0],
     [1, 0],
@@ -28,8 +26,10 @@ it.only('place ship in correct coords', () => {
   ]);
 });
 
-it.only('checks if all ships are sunk (1 ship)', () => {
+it.only('checks if one total ship is sunk', () => {
   board.placeShip(3, [0, 0]);
+
+  expect(board.checkAllShipsSunk()).toBe(false);
 
   board.receiveAttack([0, 0]);
   board.receiveAttack([1, 0]);
@@ -38,7 +38,24 @@ it.only('checks if all ships are sunk (1 ship)', () => {
   expect(board.checkAllShipsSunk()).toBe(true);
 });
 
-it.only('returns ship based on coord', () => {
+it.only('checks if two total ships are sunk', () => {
+  board.placeShip(3, [0, 0]);
+  board.placeShip(3, [0, 1]);
+
+  expect(board.checkAllShipsSunk()).toBe(false);
+
+  board.receiveAttack([0, 0]);
+  board.receiveAttack([1, 0]);
+  board.receiveAttack([2, 0]);
+
+  board.receiveAttack([0, 1]);
+  board.receiveAttack([1, 1]);
+  board.receiveAttack([2, 1]);
+
+  expect(board.checkAllShipsSunk()).toBe(true);
+});
+
+it.only('returns ship coordinate array based on single coord', () => {
   board.placeShip(3, [0, 0]);
 
   expect(board.getShipCoords([0, 0])).toEqual([
@@ -62,13 +79,7 @@ test.only('hits sink ship', () => {
 it.only('tracks board state', () => {
   board.placeShip(3, [0, 0]);
   board.receiveAttack([0, 0]);
-  // const squareState = {
-  //   unhit: '🛥️',
-  //   miss: '➖',
-  //   empty: '🌊',
-  //   sunk: '☠️',
-  //   hit: '💥'A
-  // }
+
   expect(board.getSquareState([0, 0])).toBe('💥');
   expect(board.getSquareState([0, 1])).toBe('🌊');
   expect(board.getSquareState([1, 0])).toBe('🛥️');
@@ -80,21 +91,7 @@ it.only('checks if square is unhit', () => {
   expect(board.checkCoordsUnhit([0, 0])).toBe(false);
 });
 
-it.only('generates a random coord that is unhit', () => {
-  // filter the grid for objects with no ships, select randomly
-
-  // Attack every square. Length hardcoded for now
-  for (let i = 0; i < 10; i++) {
-    for (let j = 0; j < 10; j++) {
-      board.receiveAttack([i, j]);
-    }
-  }
-
-  // Expect getRandUnhitCoord() to return empty array if nothing there
-  expect(board.getRandUnhitCoords().length).toBe(0);
-});
-
-it.only('generates a random coord that is unhit', () => {
+it.only('generates a random coord that is unhit(any square that has not previously been fired upon)', () => {
   // Attack every square except one. Length hardcoded for now
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
@@ -107,13 +104,22 @@ it.only('generates a random coord that is unhit', () => {
     }
   }
 
-  // Expect getRandUnhitCoord() to return [0, 0]
-  const [x, y] = board.getRandUnhitCoords();
-  expect(x).toBe(0);
-  expect(y).toBe(0);
+  expect(board.getRandUnhitCoords()).toEqual([0, 0]);
 });
 
-test.only('that preview function returns array of coordinates and boolean', () => {
+it.only('returns empty array if all coords have been hit', () => {
+  // Attack every square. Length hardcoded for now
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      board.receiveAttack([i, j]);
+    }
+  }
+
+  // Expect getRandUnhitCoord() to return empty array if nothing there
+  expect(board.getRandUnhitCoords().length).toBe(0);
+});
+
+test.only('that preview function returns an array of a ships coordinates and boolean', () => {
   const coords = [0, 0];
   let len = 3;
   let preview = board.shipPlacementPreview(len, coords, 'horizontal');
@@ -136,7 +142,7 @@ test.only('that preview function returns array of coordinates and boolean', () =
   ]);
 });
 
-it.only('returns a boolean indicating whether ship can be placed', () => {
+it.only('returns a boolean indicating whether ship may be placed', () => {
   const coords = [0, 0];
   const len = 3;
   let preview = board.shipPlacementPreview(len, coords, 'horizontal');
