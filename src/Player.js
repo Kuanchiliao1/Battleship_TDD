@@ -1,7 +1,10 @@
+import { isPlainObject } from 'lodash';
 import { Board } from './Board';
 
 function Player(name, totalShips) {
   const board = Board(10, totalShips);
+  let isCurrentPlayer = false;
+  let isPlacingShips = false;
 
   const attack = (coords, board) => {
     if (coords.length === 0) {
@@ -15,12 +18,18 @@ function Player(name, totalShips) {
     }
   };
 
+  function setPlayerActive() {
+    this.isCurrentPlayer = true;
+    this.isPlacingShips = true;
+  };
+
   return {
     attack,
     name,
-    isCurrentPlayer: false,
-    isPlacingShips: false,
+    isCurrentPlayer,
+    isPlacingShips,
     board,
+    setPlayerActive
   };
 }
 

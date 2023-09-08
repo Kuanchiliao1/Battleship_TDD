@@ -10,8 +10,9 @@ function startGame() {
   const player1 = Player('Player', totalShipsPerPlayer);
   const player2 = Player('A.I.', totalShipsPerPlayer);
 
-  player1.isCurrentPlayer = true;
-  player1.isPlacingShips = true;
+  player1.setPlayerActive();
+  // player1.isCurrentPlayer = true;
+  // player1.isPlacingShips = true;
 
   // const activePlayer = () => (player1.isCurrentPlayer ? player1 : player2);
   // const switchActivePlayer = () => {
@@ -24,19 +25,18 @@ function startGame() {
   player2.board.placeShip(3, [5, 5]);
   player2.board.placeShip(2, [4, 6]);
 
-  // renderBoard(player2, false);
-  // renderBoard(player1, true);
   render(player1, player2);
-  console.log(player1.isPlacingShips); //
-
-  if (player2.board.checkAllShipsSunk()) {
-    console.log('player 1 wins!');
-  }
   bindEventListeners(player1, player2, renderBoard);
 
   setTimeout(() => {
     alert(`Please place your ships (${totalShipsPerPlayer})`);
-  }, 1000)
+  }, 1000);
+
+  // Problem: need to build a loop here based on current player status
+  // How do we know when the game is over?
+  // After each attack, use player.board.checkAllShipsSunk()
+  // while()
+  //
 
   // Loop until someone's ships are completely sunk. Go one at a time.
   // While player1+player2.board.checkAllShipsSunk() is false, keep going
@@ -72,6 +72,10 @@ function startGame() {
   //   i++
   //   console.log('loop runs!')
   // }
+
+
+  // Idea:
+  // Use set interval continuiously check whether player's isAttacking state has changed
 
   return 'stuff';
 }
