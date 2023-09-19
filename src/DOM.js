@@ -23,15 +23,15 @@ function renderBoard(player, isActive) {
   });
 
   squares.forEach((square) => {
-    const div = document.createElement('div');
-    div.textContent = square.emoji;
-    div.classList.add('square');
-    div.dataset.x = square.coords[0].toString();
-    div.dataset.y = square.coords[1].toString();
-    div.dataset.name = name;
+    const img = document.createElement('img');
+    img.src = 'https://i.imgur.com/pGRVFfs.jpeg'
+    img.classList.add('square');
+    img.dataset.x = square.coords[0].toString();
+    img.dataset.y = square.coords[1].toString();
+    img.dataset.name = name;
 
-    addEmojiBackground(square.emoji, div);
-    boardEl.append(div);
+    addEmojiBackground(square.emoji, img);
+    boardEl.append(img);
   });
 }
 
